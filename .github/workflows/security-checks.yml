@@ -21,12 +21,14 @@ jobs:
 
     - name: Run Dependency Check
       run: |
-        wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.5.3/dependency-check-6.5.3-release.zip
-        unzip dependency-check-6.5.3-release.zip
-        ./dependency-check/bin/dependency-check.sh --project JavaSecurityCheck --scan ./ --format HTML --out report --disableAssembly -v
+        wget https://github.com/jeremylong/DependencyCheck/releases/download/v8.4.0/dependency-check-8.4.0-release.zip
+        unzip dependency-check-8.4.0-release.zip
+        mkdir report_dir
+        ./dependency-check/bin/dependency-check.sh --project JavaSecurityCheck --scan ./ --format HTML --out report_dir --disableAssembly --noupdate -v
+        ls -R report_dir
 
     - name: Upload Security Report
       uses: actions/upload-artifact@v4
       with:
         name: security-report
-        path: report
+        path: report_dir
